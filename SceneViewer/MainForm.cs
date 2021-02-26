@@ -39,8 +39,8 @@ namespace SceneViewer {
 
         // 加载和列表刷新
         private void 加载文件ToolStripMenuItem_Click(object sender, EventArgs e) {
-            openFileDialog.Title = "打开文件";
-            openFileDialog.DefaultExt = "*.*|所有文件";
+            openFileDialog.Title = "Open a file";
+            openFileDialog.DefaultExt = "*.*|All files";
             if (openFileDialog.ShowDialog(this) == DialogResult.OK) {
                 menuStrip1.Enabled = false;
                 tabControl1.Enabled = false;
@@ -53,7 +53,7 @@ namespace SceneViewer {
         }
 
         private void 加载文件夹ToolStripMenuItem_Click(object sender, EventArgs e) {
-            openFolderDialog.Title = "打开Data文件夹";
+            openFolderDialog.Title = "Open the Data folder";
             if (openFolderDialog.ShowDialog(this) == DialogResult.OK) {
                 menuStrip1.Enabled = false;
                 tabControl1.Enabled = false;
@@ -75,17 +75,17 @@ namespace SceneViewer {
                 Text = "Version: " + manager.assetsFileList[0].unityVersion;
 
                 // 加载文件视图
-                Logger.Info("加载文件视图");
+                Logger.Info("Load file view");
                 Progress.Reset();
                 int proRate = 0;
                 foreach (var assetFile in manager.assetsFileList) {
                     FileView_Selector.Items.Add(assetFile.fileName);
                     Progress.Report(++proRate, manager.assetsFileList.Count);
                 }
-                Logger.Info("加载文件视图完成");
+                Logger.Info("Loading file view is complete");
 
                 // 加载场景视图
-                Logger.Info("加载场景视图");
+                Logger.Info("Load scene view");
                 Progress.Reset();
                 proRate = 0;
                 foreach (var file in manager.assetsFileList) {
@@ -94,16 +94,16 @@ namespace SceneViewer {
                         HierarchiesTree.Nodes.Add(node);
                     Progress.Report(++proRate, manager.assetsFileList.Count);
                 }
-                Logger.Info("加载场景视图完成");
+                Logger.Info("Loading the scene view is complete");
 
                 // TODO 加载脚本视图
-                Logger.Info("加载脚本视图");
+                Logger.Info("Load script view");
                 ScriptTree.Nodes.AddRange(ScriptViewBuilder.BuildScriptTree(manager));
-                Logger.Info("加载脚本视图完成");
+                Logger.Info("Loading script view is complete");
 
-                Logger.Info("视图更新完成");
+                Logger.Info("View update completed");
             } else {
-                Logger.Info("未找到Unity资源文件");
+                Logger.Info("Unity resource file not found");
             }
             menuStrip1.Enabled = true;
             tabControl1.Enabled = true;
@@ -136,10 +136,10 @@ namespace SceneViewer {
         private void HierarchiesTree_AfterSelect(object sender, TreeViewEventArgs e) {
             if (HierarchiesTree.SelectedNode.Tag is GameObject gameObject) {
                 ShowInfoForObj(gameObject);
-                Logger.Info("获取组件");
+                Logger.Info("Get components");
                 ComponentTree.Nodes.Clear();
                 ComponentTree.Nodes.AddRange(gameObject.BuildComponentsList());
-                Logger.Info("获取组件完成");
+                Logger.Info("Get components complete");
             }
         }
 
@@ -196,23 +196,42 @@ namespace SceneViewer {
         // 加载DLL
         private void 加载DLLToolStripMenuItem_Click(object sender, EventArgs e) {
             if (manager.assetsFileList.Count > 0) {
-                openFolderDialog.Title = "打开DLL所在文件夹";
+                openFolderDialog.Title = "Open the folder where the DLL is located";
                 if (openFolderDialog.ShowDialog(this) == DialogResult.OK) {
-                    Logger.Info("载入DLL");
+                    Logger.Info("Load DLL");
                     scriptDumper.Dispose();
                     scriptDumper = new ScriptDumper(openFolderDialog.Folder);
-                    Logger.Info("载入DLL完成");
+                    Logger.Info("Loading the DLL is complete");
                 }
             } else {
-                MessageBox.Show(this, "未加载Data文件");
+                MessageBox.Show(this, "Data file not loaded");
             }
         }
 
         private void 关闭文件ToolStripMenuItem_Click(object sender, EventArgs e) {
             ClearForm();
-            Logger.Info("文件已关闭");
+            Logger.Info("File closed");
         }
 
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 
     public class GUILogger : ILogger {

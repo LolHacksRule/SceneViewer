@@ -9,7 +9,7 @@ using AssetStudio;
 namespace SceneViewer {
     class ScriptViewBuilder {
         public static TreeNode[] BuildScriptTree(AssetsManager manager) {
-            Logger.Info("收集MonoScript对象");
+            Logger.Info("Collect MonoScript objects");
             Progress.Reset();
 
             List<MonoScript> monoScripts = new List<MonoScript>();
@@ -23,7 +23,7 @@ namespace SceneViewer {
             }
 
             // 整理DLL文件
-            Logger.Info("按照DLL分组");
+            Logger.Info("Group by DLL");
             Progress.Reset();
 
             Dictionary<string, List<MonoScript>> DLL = new Dictionary<string, List<MonoScript>>();
@@ -36,7 +36,7 @@ namespace SceneViewer {
             }
 
             // 逐个DLL构建节点
-            Logger.Info("按照DLL构建节点");
+            Logger.Info("Build node according to DLL");
             List<TreeNode> DLLNodes = new List<TreeNode>();
             int j = 0;
             foreach (var entry in DLL) {
